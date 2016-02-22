@@ -38,7 +38,22 @@
 			                <tr>
 			               
 			                  <td>{{ subcomanda.numar_curent }}</td>
-			                  <td>{{ subcomanda.status }}</td>
+
+			                  <td>
+			                  	
+			                  	 {% if subcomanda.status.text == 'Deschis'  %}
+			                  	 	<span class="btn btn-success"></span>
+			                  	 {% endif %}
+
+			                  	  {% if subcomanda.status.text == 'Inchis'  %}
+			                  	 	<span class="btn btn-danger"></span>
+			                  	 {% endif %}
+
+			                  	  {% if subcomanda.status.text == 'Anulat'  %}
+			                  	 	<span class="btn btn-warning"></span>
+			                  	 {% endif %}
+
+			                  </td>
 			                  <td>{{ subcomanda.producator }}</td>
 			                  <td>{{ subcomanda.reper.cod_reper }}</td>
 			                  <td>{{ subcomanda.reper.reper }}</td>
