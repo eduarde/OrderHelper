@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-
+from django.utils.timezone import now
+from datetime import date, timedelta
 
 
 class Status(models.Model):
@@ -93,7 +94,7 @@ class Subcomanda(models.Model):
 class Comanda(models.Model):
 	numar_unic = models.IntegerField()
 	status = models.ForeignKey('Status', null=True)
-	data = models.DateField('Data')
+	data = models.DateField('Data',default=now())
 	obiect_succint = models.TextField('Obiect Succint', null=True)
 	solicitant = models.ForeignKey('Persoana',null=True, verbose_name='Solicitant')
 	# cc = models.ForeignKey('Persoana', null=True, blank=True, verbose_name='CC')
@@ -108,9 +109,10 @@ class Comanda(models.Model):
 	# autor = models.ForeignKey('auth.User', verbose_name='Autor', null=True)
 	#total = property(make_total)
 
-	def calculate_late(self):
-		self.data_primire - self.data_livrare 	
-
+	def is_late(self):
+		return 0
+		# return timedelta(days=self.data_livrare)- date.today()
+		
 	def __str__(self):
 		return 'Comanda #' + str(self.numar_unic)
 
