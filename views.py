@@ -17,3 +17,6 @@ def comanda_subcomenzi(request, pk):
 def persoana_new(request):
 	form = PersoanaForm()
 	return render(request,'orderhelper/persoana_new.html', {'form': form})
+
+def add_home(request):
+	return render(request,'orderhelper/add_home.html', {})
