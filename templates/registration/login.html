@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,20 +9,19 @@
   <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 </head>
+<body>
+  {% if form.errors %}
+  <div class="alert alert-danger" role="alert">Your username and password didn't match. Please try again.</div>
+  {% endif %}
+  <div class="container">
+     
 
-  <body>
-
-    <div class="container">
-      {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-       {% endif %}
-
-<!--       <form method="post" class="form-signin">{% csrf_token %}
+      <form method="post" class="form-signin">{% csrf_token %}
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="id_username" class="sr-only">Username</label>
-        <td class="form-control">{{ form.username }}</td>
+        <td>{{ form.username|add_class:"form-control"|attr:"placeholder:Username" }}</td>
         <label for="inputPassword" class="sr-only">Password</label>
-        <td class="form-control">{{ form.password }}</td>
+        <td class="form-control">{{ form.password|add_class:"form-control"|attr:"placeholder:Password" }}</td>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
@@ -29,27 +29,7 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <input type="hidden" name="next" value="/pending_comanda" />
-      </form> -->
-
-
-
-
-      <form role="form" class="form-horizontal" method="post">{% csrf_token %}
-    <div class="form-group">
-        {% for field in form %}
-            <div class="input-group">
-                <span class="input-group-addon" style="background-color:#b77b48; color:white"><span class="glyphicon glyphicon-user"></span></span>
-                <input class="form-control" id="{{ field.id_for_label }}" maxlength="30" name="{{ field.html_name }}" value="{{ field.value }}" type="text" /> 
-                {{ field.errors }}
-            </div>
-        {% endfor %}
-        <input type="submit" class="btn btn-primary" value="login" />
-        <input type="hidden" name="next" value="{{ pending_comanda }}" />
-    </div>
-</form>
-
-    </div> <!-- /container -->
-
+      </form>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>

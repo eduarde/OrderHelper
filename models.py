@@ -87,6 +87,12 @@ class Subcomanda(models.Model):
 	def calculate_late(self):
 		self.data_primire - self.data_livrare 	
 
+	def is_late(self):
+		return date.today().isoformat() > self.data_livrare.isoformat()
+
+	def is_today(self):
+		return date.today().isoformat() == self.data_livrare.isoformat()	
+
 	def __str__(self):
 		return 'Subcomanda #' + str(self.numar_curent)
 
@@ -110,9 +116,19 @@ class Comanda(models.Model):
 	# autor = models.ForeignKey('auth.User', verbose_name='Autor', null=True)
 	#total = property(make_total)
 
+
 	def is_late(self):
-		return 0
-		# return timedelta(days=self.data_livrare)- date.today()
+		return date.today().isoformat() > self.data_livrare.isoformat()
+
+	def is_today(self):
+		return date.today().isoformat() == self.data_livrare.isoformat()
+
+	def calculate_progress(self):
+		subcomenzi_total = Subcomanda.objects.all().filter(comanda_ref__numar_unic=self.numar_unic).count()
+		subcomenzi_finished = Subcomanda.objects.all().filter(comanda_ref__numar_unic=self.numar_unic,status__text='Inchis').count()
+		if subcomenzi_total == 0:
+			return 0
+		return ( subcomenzi_finished * 100 ) / subcomenzi_total	
 		
 	def __str__(self):
 		return 'Comanda #' + str(self.numar_unic)

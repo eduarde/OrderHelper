@@ -36,7 +36,7 @@
 		              
 		               {% for subcomanda in subcomenzi %}
    		 				
-			                <tr>
+			                 <tr class="{%if subcomanda.is_late %} danger {% endif %} {%if subcomanda.is_today %} warning {% endif %}">
 			               
 			                  <td>{{ subcomanda.numar_curent }}</td>
 
