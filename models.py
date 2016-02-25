@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.timezone import now
 from datetime import date, timedelta
-
+from django.contrib.auth.models import Group
 
 class Status(models.Model):
 	text = models.CharField(max_length=200)
@@ -106,6 +106,7 @@ class Comanda(models.Model):
 	de_facturat = models.DecimalField('De facturat', default=0, max_digits=9, decimal_places=6, null=True, blank=True)
 	tva_facturat = models.DecimalField('TVA Facturat', default=0, max_digits=9, decimal_places=6, null=True, blank=True)
 	tva_de_facturat = models.DecimalField('TVA de Facturat', default=0, max_digits=9, decimal_places=6, null=True, blank=True)
+	group = models.ManyToManyField(Group, related_name='coamandas')
 	# autor = models.ForeignKey('auth.User', verbose_name='Autor', null=True)
 	#total = property(make_total)
 
