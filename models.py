@@ -21,7 +21,7 @@ class Persoana(models.Model):
 class Proiect(models.Model):
 	titlu = models.CharField('Denumire', max_length=255)
 	descriere = models.TextField('Descriere', blank=True, null=True)
-	telefon = models.CharField('Telefon', max_length=10, blank=True, null=True)
+	telefon = models.CharField('Telefon2', max_length=10, blank=True, null=True)
 
 	def __str__(self):
 		return self.titlu
